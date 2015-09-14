@@ -1,10 +1,11 @@
-module D20.Internal.Random (draw) where
+module D20.Internal.Random (draw, drawFromGen) where
 
 import Control.Monad.Random
 
-draw :: (RandomGen g) => Int -> Int -> Rand g Int
-draw low high = getRandomR (low, high)
+drawFromGen :: (RandomGen g) => Int -> Int -> Rand g Int
+drawFromGen low high
+  | low <= high = getRandomR (low, high)
+  | otherwise = drawFromGen high low
 
-main = do
-  x <- evalRandIO $ draw 1 6
-  print $ show x
+draw :: Int -> Int -> IO Int
+draw low high = evalRandIO $ drawFromGen low high

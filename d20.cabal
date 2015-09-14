@@ -19,7 +19,19 @@ library
   exposed-modules: D20
                  , D20.Dice
                  , D20.Dice.Parser
+                 , D20.Character
                  , D20.Internal.Dice
+                 , D20.Internal.Character.Ability
+                 , D20.Internal.Character.Age
+                 , D20.Internal.Character.BasicClass
+                 , D20.Internal.Character.ClassTable
+                 , D20.Internal.Character.Feat
+                 , D20.Internal.Character.FeatEffect
+                 , D20.Internal.Character.Skill
+                 , D20.Internal.Character.Talent
+                 , D20.Internal.Character.TalentEffect
+                 , D20.Internal.Character.TalentLevel
+                 , D20.Internal.Character.TalentTree
                  , D20.Internal.Random
                  , D20.Internal.Utils.Transform
   -- other-modules:       

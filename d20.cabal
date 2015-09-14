@@ -18,13 +18,16 @@ cabal-version:       >=1.10
 library
   exposed-modules: D20
                  , D20.Dice
+                 , D20.Dice.Parser
                  , D20.Internal.Dice
                  , D20.Internal.Random
+                 , D20.Internal.Utils.Transform
   -- other-modules:       
   -- other-extensions:    
   build-depends:      base >=4.8 && <4.9
                     , MonadRandom                >= 0.4
                     , containers                 >= 0.5.6.2
+                    , regex-posix                >= 0.95
                     , HUnit                      >= 1.2
                     , QuickCheck                 >= 2.4
                     , quickcheck-io              >= 0.1.2
@@ -38,12 +41,15 @@ library
 test-suite unit-tests-and-properties
   type:           exitcode-stdio-1.0
   main-is:        Main.hs
-  hs-source-dirs: test, test/Properties
+  hs-source-dirs: test
+                , test/Properties
+                , test/Properties/Dice
   build-depends:
                 base                       >= 4.8 && < 4.9
               , d20                        >= 0.1.0.0
               , MonadRandom                >= 0.4
               , containers                 >= 0.5.6.2
+              , regex-posix                >= 0.95
               , HUnit                      >= 1.2
               , QuickCheck                 >= 2.4
               , quickcheck-io              >= 0.1.2

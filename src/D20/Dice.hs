@@ -1,10 +1,11 @@
-module D20.Dice (Roll(..), Die(..), sides, roll) where
+module D20.Dice (Roll(..), Die(..), sides, dieWithSides, roll) where
 
 import Data.Maybe
 import qualified Data.Map as M
 
 import D20.Internal.Random
 import D20.Internal.Dice
+import D20.Internal.Utils.Transform (flipMap)
 
 data Die
   = Four
@@ -30,6 +31,12 @@ dieMap =
     ,(Twenty,20)
     ,(Percentile,100)]
 
+reverseDieMap :: M.Map Int Die
+reverseDieMap = flipMap dieMap
+
+dieWithSides :: Int -> Maybe Die
+dieWithSides = flip M.lookup reverseDieMap
+
 -- Problematic when Die needs to be an instance of Arbitrary.
 -- instance Enum Die where
 --   fromEnum =
@@ -47,7 +54,7 @@ data Roll =
   Roll {rollDie :: Die
        ,rollMultiplier :: Maybe Int
        ,rollAdditive :: Maybe Int}
-  deriving (Show)
+  deriving (Show, Eq)
 
 type RollModifier = Roll -> Int -> Int
 

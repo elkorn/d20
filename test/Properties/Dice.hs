@@ -29,7 +29,13 @@ instance Arbitrary Die where
 prop_roll_obeys_dice_values :: Die -> Property
 prop_roll_obeys_dice_values die = True ==> do
   result <- roll Roll {rollDie = die, rollMultiplier = Nothing, rollAdditive = Nothing }
-  print $ show die ++ "(" ++ show (fromJust . sides $ die) ++ "): " ++ show result
   result <= (fromJust . sides $ die) && result >= 1 @?= True
+
+prop_additives_affect_dice_roll :: Int -> Die -> Property
+prop_additives_affect_dice_roll additive die = True ==> do
+  result <- roll Roll {rollDie = die, rollMultiplier = Nothing, rollAdditive = Just additive }
+  let minResult = additive + 1
+  let maxResult = (fromJust . sides $ die) + additive
+  result >= minResult && result <= maxResult @?= True
 
 tests = $testGroupGenerator

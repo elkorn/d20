@@ -15,18 +15,21 @@ data Age
 
 type AgeBounds = (Int,Int)
 
-ageBounds :: M.Map Age AgeBounds
-ageBounds =
-  M.fromList
-    [(Child,(1,11))
-    ,(YoungAdult,(12,15))
-    ,(Adult,(16,39))
-    ,(MiddleAged,(40,59))
-    ,(Old,(60,79))
-    ,(Venerable,(80,200))]
+class IsAging a  where
+  getAgingEffect :: a -> M.Map Ability Int
+  getAgingStage :: a -> Age
 
-ageEffects :: M.Map Age (M.Map Ability Int)
-ageEffects =
+agingStages :: [(AgeBounds,Age)]
+agingStages =
+  [((1,11),Child)
+  ,((12,15),YoungAdult)
+  ,((16,39),Adult)
+  ,((40,59),MiddleAged)
+  ,((60,79),Old)
+  ,((80,200),Venerable)]
+
+agingEffects :: M.Map Age (M.Map Ability Int)
+agingEffects =
   M.fromList
     [(Child
      ,M.fromList

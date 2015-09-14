@@ -1,6 +1,5 @@
 module D20.Dice (Roll(..), Die(..), sides, roll) where
 
-import Data.Tuple
 import Data.Maybe
 import qualified Data.Map as M
 

@@ -1,4 +1,8 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module D20.Character where
+
+import GHC.Generics
 
 import D20.Internal.Character.Ability
 import D20.Internal.Character.Age
@@ -10,34 +14,31 @@ import Data.Maybe
 import Data.List
 
 data Character =
-  Character {getAbilities :: M.Map Ability Int
+  Character {getCharacterAbilities :: Abilities
             ,getAge :: Int
             ,getBasicClass :: BasicClass}
+  deriving (Show,Generic)
+
+instance HasAbilities Character where
+  getAbilities = getCharacterAbilities
 
 class IsCharacter a  where
   getAbility :: Ability -> a -> Int
   getAbilityModifier :: Ability -> a -> Int
-
-instance IsCharacter Character where
-  getAbility ability character =
-    fromJust (M.lookup ability $ getAbilities character)
-  getAbilityModifier ability character =
-    abilityModifier $
-    getAbility ability character
 
 instance IsGainingSkills Character where
   getFirstLevelSkillPoints character =
     let skillGain =
           (getClassStartingSkillPoints . getBasicClass) character
         ability =
-          getAbility (getSkillGainGoverningAbility skillGain)
+          getAbilityValue (getSkillGainGoverningAbility skillGain)
                      character
     in computeSkillPointsForBaseValue ability skillGain
   getSkillPointsPerLevel character =
     let skillGain =
           (getClassSkillPointsPerLevel . getBasicClass) character
         ability =
-          getAbility (getSkillGainGoverningAbility skillGain)
+          getAbilityValue (getSkillGainGoverningAbility skillGain)
                      character
     in computeSkillPointsForBaseValue ability skillGain
 

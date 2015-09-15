@@ -1,4 +1,8 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module D20.Internal.Character.ClassTable where
+
+import GHC.Generics
 
 data ClassTableRow =
   ClassTableRow {getLevel :: Int
@@ -12,6 +16,6 @@ data ClassTableRow =
                 ,getReputationBonus :: Int}
   -- , talents :: [Talent]
   -- , getBonusFeats :: [Feature]
-  deriving (Show,Eq)
+  deriving (Show,Eq,Generic)
 
 type ClassTable = [ClassTableRow]

@@ -11,14 +11,19 @@ import D20.Internal.Character.Skill
 
 strongCharacter :: Character
 strongCharacter =
-  Character {getAbilities =
-               M.fromList [(Strength,20),(Dexterity,10)]
+  Character {getCharacterAbilities =
+               Abilities {getStrength = 20
+                         ,getDexterity = 16
+                         ,getConstitution = 18
+                         ,getIntelligence = 10
+                         ,getWisdom = 10
+                         ,getCharisma = 10}
             ,getAge = 25
             ,getBasicClass =
                BasicClass {getClassAbility = Strength
-                          ,getHitDie = Twenty
+                          ,getHitDie = Eight
                           ,getActionPoints = 20
-                          ,getClassSkills = M.empty
+                          ,getClassSkills = []
                           ,getClassTable = []
                           ,getClassStartingSkillPoints =
                              SkillGain {getSkillGainGoverningAbility = Intelligence

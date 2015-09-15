@@ -1,4 +1,9 @@
-module D20.Dice (Roll(..), Die(..), sides, dieWithSides, roll) where
+{-# LANGUAGE DeriveGeneric #-}
+
+module D20.Dice (Roll(..), Die(..), sides, dieWithSides, roll)
+       where
+
+import GHC.Generics
 
 import Data.Maybe
 import qualified Data.Map as M
@@ -15,7 +20,7 @@ data Die
   | Twelve
   | Twenty
   | Percentile
-  deriving (Eq,Show,Ord,Enum)
+  deriving (Eq,Show,Ord,Enum,Generic)
 
 sides :: Die -> Maybe Int
 sides die = M.lookup die dieMap
@@ -54,7 +59,7 @@ data Roll =
   Roll {rollDie :: Die
        ,rollMultiplier :: Maybe Int
        ,rollAdditive :: Maybe Int}
-  deriving (Show, Eq)
+  deriving (Show,Eq)
 
 type RollModifier = Roll -> Int -> Int
 

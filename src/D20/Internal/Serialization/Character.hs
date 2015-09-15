@@ -11,10 +11,10 @@ import D20.Character
 
 import D20.Internal.Serialization.Dice
 
-import D20.Character.Strong
+-- import D20.Character.Strong
+-- import qualified Data.ByteString.Lazy.Char8 as BL
 
 import Data.Aeson
-import Data.Map
 
 instance ToJSON Abilities
 instance FromJSON Abilities
@@ -48,3 +48,6 @@ instance FromJSON SkillGain
 
 instance ToJSON Talent
 instance FromJSON Talent
+
+-- main = do
+--   BL.writeFile "test.json" $ encode strongCharacter

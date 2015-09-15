@@ -21,6 +21,7 @@ library
                  , D20.Dice.Parser
                  , D20.Character
                  , D20.Internal.Dice
+                 , D20.Internal.Random
                  , D20.Internal.Character.Ability
                  , D20.Internal.Character.Age
                  , D20.Internal.Character.BasicClass
@@ -32,20 +33,20 @@ library
                  , D20.Internal.Character.TalentEffect
                  , D20.Internal.Character.TalentLevel
                  , D20.Internal.Character.TalentTree
-                 , D20.Internal.Random
                  , D20.Internal.Serialization.Character
                  , D20.Internal.Serialization.Dice
                  , D20.Internal.Utils.Transform
   -- other-modules:       
   -- other-extensions:    
-  build-depends:      base >=4.8 && <4.9
+  build-depends:      HUnit                      >= 1.2
                     , MonadRandom                >= 0.4
-                    , containers                 >= 0.5.6.2
-                    , regex-posix                >= 0.95
-                    , aeson                      >= 0.9
-                    , HUnit                      >= 1.2
                     , QuickCheck                 >= 2.4
+                    , aeson                      >= 0.9
+                    , base >=4.8 && <4.9
+                    , bytestring >= 0.10.6.0
+                    , containers                 >= 0.5.6.2
                     , quickcheck-io              >= 0.1.2
+                    , regex-posix                >= 0.95
                     , test-framework             >= 0.6
                     , test-framework-hunit       >= 0.3
                     , test-framework-quickcheck2 >= 0.2
@@ -60,15 +61,16 @@ test-suite unit-tests-and-properties
                 , test/Properties
                 , test/Properties/Dice
   build-depends:
-                base                       >= 4.8 && < 4.9
-              , d20                        >= 0.1.0.0
-              , MonadRandom                >= 0.4
-              , containers                 >= 0.5.6.2
-              , regex-posix                >= 0.95
-              , HUnit                      >= 1.2
-              , QuickCheck                 >= 2.4
-              , quickcheck-io              >= 0.1.2
-              , test-framework             >= 0.6
-              , test-framework-hunit       >= 0.3
-              , test-framework-quickcheck2 >= 0.2
-              , test-framework-th          >= 0.2
+                    base                       >= 4.8 && < 4.9
+                , HUnit                      >= 1.2
+                , MonadRandom                >= 0.4
+                , QuickCheck                 >= 2.4
+                , bytestring >= 0.10.6.0
+                , containers                 >= 0.5.6.2
+                , d20                        >= 0.1.0.0
+                , quickcheck-io              >= 0.1.2
+                , regex-posix                >= 0.95
+                , test-framework             >= 0.6
+                , test-framework-hunit       >= 0.3
+                , test-framework-quickcheck2 >= 0.2
+                , test-framework-th          >= 0.2

@@ -20,6 +20,7 @@ library
                  , D20.Dice
                  , D20.Dice.Parser
                  , D20.Character
+                 , D20.Example.CharacterSerialization
                  , D20.Internal.Dice
                  , D20.Internal.Random
                  , D20.Internal.Character.Ability

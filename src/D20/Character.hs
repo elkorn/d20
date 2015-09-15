@@ -14,8 +14,9 @@ import Data.Maybe
 import Data.List
 
 data Character =
-  Character {getCharacterAbilities :: Abilities
-            ,getAge :: Int
+  Character {getAge :: Int
+            ,getName :: String
+            ,getCharacterAbilities :: Abilities
             ,getBasicClass :: BasicClass}
   deriving (Show,Generic)
 
@@ -32,14 +33,14 @@ instance IsGainingSkills Character where
           (getClassStartingSkillPoints . getBasicClass) character
         ability =
           getAbilityValue (getSkillGainGoverningAbility skillGain)
-                     character
+                          character
     in computeSkillPointsForBaseValue ability skillGain
   getSkillPointsPerLevel character =
     let skillGain =
           (getClassSkillPointsPerLevel . getBasicClass) character
         ability =
           getAbilityValue (getSkillGainGoverningAbility skillGain)
-                     character
+                          character
     in computeSkillPointsForBaseValue ability skillGain
 
 instance IsAging Character where

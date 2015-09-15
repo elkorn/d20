@@ -7,7 +7,18 @@ import D20.Character
 import D20.Dice
 import D20.Internal.Character.Ability
 import D20.Internal.Character.BasicClass
+import D20.Internal.Character.Feat
+import D20.Internal.Character.FeatEffect
 import D20.Internal.Character.Skill
+
+powerAttack :: Feat
+powerAttack =
+  Feat {getFeatName = "Power Attack"
+       ,prerequisites =
+          [AbilityPrerequisite Strength 13]
+       ,benefit = FeatEffect
+       ,normal = Nothing
+       ,special = Nothing}
 
 strongCharacter :: Character
 strongCharacter =
@@ -18,6 +29,7 @@ strongCharacter =
                          ,getIntelligence = 10
                          ,getWisdom = 10
                          ,getCharisma = 10}
+            ,getName = "Conan"
             ,getAge = 25
             ,getBasicClass =
                BasicClass {getClassAbility = Strength
@@ -33,6 +45,13 @@ strongCharacter =
                              SkillGain {getSkillGainGoverningAbility = Intelligence
                                        ,getMultiplier = 1
                                        ,getAdditive = 3}
-                          ,getStartingFeats = []
+                          ,getStartingFeats =
+                             [Feat {getFeatName = "Cleave"
+                                   ,prerequisites =
+                                      [AbilityPrerequisite Strength 13
+                                      ,FeatPrerequisite $ FeatReference "Power Attack"]
+                                   ,benefit = FeatEffect
+                                   ,normal = Nothing
+                                   ,special = Nothing}]
                           ,getTalents = []
                           ,getBonusFeats = []}}

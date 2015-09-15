@@ -10,20 +10,25 @@ import D20.Internal.Character.FeatEffect
 
 -- TODO: this is ok until we start to need custom prerequisites.
 data FeatPrerequisite
-  = FeatPrerequisite Feat
+  = FeatPrerequisite FeatReference
   | AbilityPrerequisite Ability
                         Int
   | SkillPrerequisite Skill
                       Int
   | BaseAttackBonusPrerequisite Int
-  deriving (Show,Eq,Ord, Generic)
+  deriving (Show,Eq,Ord,Generic)
+type FeatName = String
 
 data Feat =
-  Feat {getName :: String
+  Feat {getFeatName :: FeatName
        ,prerequisites :: [FeatPrerequisite]
        ,benefit :: FeatEffect
-       ,normal :: FeatEffect
-       ,special :: String}
+       ,normal :: Maybe FeatEffect
+       ,special :: Maybe String}
+  deriving (Show,Eq,Ord,Generic)
+
+data FeatReference =
+  FeatReference FeatName
   deriving (Show,Eq,Ord,Generic)
 {-
 Every basic class offers a selection of bonus feats to choose from. A character gains a bonus feat upon attaining each even-numbered level in a class. These bonus feats are in addition to the feats that all characters receive as they attain new levels. Some feats have prerequisites that must be met before a character can select them.

@@ -11,9 +11,6 @@ import D20.Character
 
 import D20.Internal.Serialization.Dice
 
--- import D20.Character.Strong
--- import qualified Data.ByteString.Lazy.Char8 as BL
-
 import Data.Aeson
 
 instance ToJSON Abilities
@@ -25,20 +22,23 @@ instance FromJSON Ability
 instance ToJSON BasicClass
 instance FromJSON BasicClass
 
-instance ToJSON ClassTableRow
-instance FromJSON ClassTableRow
-
 instance ToJSON Character
 instance FromJSON Character
 
-instance ToJSON FeatPrerequisite
-instance FromJSON FeatPrerequisite
+instance ToJSON ClassTableRow
+instance FromJSON ClassTableRow
+
+instance ToJSON Feat
+instance FromJSON Feat
 
 instance ToJSON FeatEffect
 instance FromJSON FeatEffect
 
-instance ToJSON Feat
-instance FromJSON Feat
+instance ToJSON FeatPrerequisite
+instance FromJSON FeatPrerequisite
+
+instance ToJSON FeatReference
+instance FromJSON FeatReference
 
 instance ToJSON Skill
 instance FromJSON Skill
@@ -48,6 +48,3 @@ instance FromJSON SkillGain
 
 instance ToJSON Talent
 instance FromJSON Talent
-
--- main = do
---   BL.writeFile "test.json" $ encode strongCharacter

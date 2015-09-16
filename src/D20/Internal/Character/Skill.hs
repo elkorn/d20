@@ -70,10 +70,10 @@ class IsGainingSkills a  where
   getSkillPointsPerLevel =
     computeSkillGainAccordingToModel getPerLevelSkillGain getBaseSkillPoints
 
-class DefaultSkillGainModel s  where
+class SkillGainModel s  where
   computeSkillPointsForBaseValue :: Int -> s -> Int
 
-instance DefaultSkillGainModel SkillGain where
+instance SkillGainModel SkillGain where
   computeSkillPointsForBaseValue base skillGain =
     (base +
      (getAdditive skillGain)) *

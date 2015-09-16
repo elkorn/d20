@@ -1,8 +1,10 @@
-module D20.Internal.Character.Age where
+module D20.Internal.Character.Age (Age, IsAging (..)) where
 
 import D20.Internal.Character.Ability
 
-import qualified Data.Map as M
+import Data.Map
+import Data.Maybe
+import Data.List
 
 data Age
   = Child
@@ -16,8 +18,18 @@ data Age
 type AgeBounds = (Int,Int)
 
 class IsAging a  where
-  getAgingEffect :: a -> M.Map Ability Int
+  getAge :: a -> Int
+  getAgingEffect :: a -> Map Ability Int
+  getAgingEffect a =
+    fromJust $
+    Data.Map.lookup (getAgingStage a)
+                    agingEffects
   getAgingStage :: a -> Age
+  getAgingStage a =
+    let age = getAge a
+    in snd $
+       fromJust $
+       find (\((lo,hi),_) -> age >= lo && age <= hi) agingStages
 
 agingStages :: [(AgeBounds,Age)]
 agingStages =
@@ -28,38 +40,33 @@ agingStages =
   ,((60,79),Old)
   ,((80,200),Venerable)]
 
-agingEffects :: M.Map Age (M.Map Ability Int)
+agingEffects :: Map Age (Map Ability Int)
 agingEffects =
-  M.fromList
-    [(Child
-     ,M.fromList
-        [(Strength,-3)
-        ,(Constitution,-3)
-        ,(Dexterity,-1)
-        ,(Intelligence,-1)
-        ,(Wisdom,-1)
-        ,(Charisma,-1)])
-    ,(MiddleAged
-     ,M.fromList
-        [(Strength,-1)
-        ,(Constitution,-1)
-        ,(Dexterity,-1)
-        ,(Intelligence,1)
-        ,(Wisdom,1)
-        ,(Charisma,1)])
-    ,(Old
-     ,M.fromList
-        [(Strength,-1)
-        ,(Constitution,-1)
-        ,(Dexterity,-1)
-        ,(Intelligence,1)
-        ,(Wisdom,1)
-        ,(Charisma,1)])
-    ,(Venerable
-     ,M.fromList
-        [(Strength,-1)
-        ,(Constitution,-1)
-        ,(Dexterity,-1)
-        ,(Intelligence,1)
-        ,(Wisdom,1)
-        ,(Charisma,1)])]
+  fromList [(Child
+            ,fromList [(Strength,-3)
+                      ,(Constitution,-3)
+                      ,(Dexterity,-1)
+                      ,(Intelligence,-1)
+                      ,(Wisdom,-1)
+                      ,(Charisma,-1)])
+           ,(MiddleAged
+            ,fromList [(Strength,-1)
+                      ,(Constitution,-1)
+                      ,(Dexterity,-1)
+                      ,(Intelligence,1)
+                      ,(Wisdom,1)
+                      ,(Charisma,1)])
+           ,(Old
+            ,fromList [(Strength,-1)
+                      ,(Constitution,-1)
+                      ,(Dexterity,-1)
+                      ,(Intelligence,1)
+                      ,(Wisdom,1)
+                      ,(Charisma,1)])
+           ,(Venerable
+            ,fromList [(Strength,-1)
+                      ,(Constitution,-1)
+                      ,(Dexterity,-1)
+                      ,(Intelligence,1)
+                      ,(Wisdom,1)
+                      ,(Charisma,1)])]

@@ -9,12 +9,8 @@ import D20.Internal.Character.Age
 import D20.Internal.Character.BasicClass
 import D20.Internal.Character.Skill
 
-import qualified Data.Map as M
-import Data.Maybe
-import Data.List
-
 data Character =
-  Character {getAge :: Int
+  Character {getCharacterAge :: Int
             ,getName :: String
             ,getCharacterAbilities :: Abilities
             ,getBasicClass :: BasicClass}
@@ -30,17 +26,13 @@ class IsCharacter a  where
 instance IsGainingSkills Character where
   getFirstLevelSkillGain = getClassStartingSkillPoints . getBasicClass
   getPerLevelSkillGain = getClassSkillPointsPerLevel . getBasicClass
-  getBaseSkillPoints skillGain character = getAbilityValue (getSkillGainGoverningAbility skillGain) character
+  getBaseSkillPoints skillGain character =
+    abilityModifier $
+    getAbilityValue (getSkillGainGoverningAbility skillGain)
+                    character
 
 instance IsAging Character where
-  getAgingEffect character =
-    fromJust $
-    M.lookup (getAgingStage character) agingEffects
-  getAgingStage character =
-    let age = getAge character
-    in snd $
-       fromJust $
-       find (\((lo,hi),_) -> age >= lo && age <= hi) agingStages
+  getAge = getCharacterAge
 
 -- ability / 2 - 5 rounded down.
 abilityModifier :: Int -> Int

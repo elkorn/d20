@@ -1,4 +1,4 @@
-module TestInstances where
+module Dice.TestInstances where
 
 import Test.QuickCheck
 

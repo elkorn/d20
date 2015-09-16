@@ -21,6 +21,7 @@ library
                  , D20.Dice.Parser
                  , D20.Character
                  , D20.Character.Strong
+                 , D20.Combat
                  , D20.Example.CharacterSerialization
                  , D20.Internal.Dice
                  , D20.Internal.Random

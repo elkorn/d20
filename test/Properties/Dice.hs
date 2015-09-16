@@ -7,7 +7,7 @@ import Test.Framework.TH
 import Test.HUnit
 import Test.QuickCheck
 import Test.QuickCheck.IO ()
-import TestInstances
+import Dice.TestInstances
 
 import Control.Monad.Random
 import Data.Maybe

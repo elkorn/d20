@@ -59,6 +59,7 @@ data FeatEffect
   = FeatEffect
   | SkillCheckBonus SkillReference
                     Int
+  | InitiativeBonus Int
   | AttackBonus AttackBonusCondition
                 AttackBonusEffect
   deriving (Show,Generic)

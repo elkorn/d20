@@ -30,6 +30,7 @@ strongCharacter =
                          ,getCharisma = 10}
             ,getName = "Conan"
             ,getCharacterAge = 25
+            ,getAcquiredFeats = []
             ,getBasicClass =
                BasicClass {getClassAbility = Strength
                           ,getHitDie = Eight

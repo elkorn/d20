@@ -20,10 +20,12 @@ library
                  , D20.Dice
                  , D20.Dice.Parser
                  , D20.Character
+                 , D20.Character.Strong
                  , D20.Example.CharacterSerialization
                  , D20.Internal.Dice
                  , D20.Internal.Random
                  , D20.Internal.Character.Ability
+                 , D20.Internal.Character.Action
                  , D20.Internal.Character.Age
                  , D20.Internal.Character.BasicClass
                  , D20.Internal.Character.ClassTable
@@ -34,6 +36,7 @@ library
                  , D20.Internal.Character.TalentEffect
                  , D20.Internal.Character.TalentLevel
                  , D20.Internal.Character.TalentTree
+                 , D20.Internal.Serialization.Action
                  , D20.Internal.Serialization.Character
                  , D20.Internal.Serialization.Dice
                  , D20.Internal.Utils.Transform

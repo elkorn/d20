@@ -1,6 +1,6 @@
 module D20.Character.Strong where
 
--- TODO this is just to show me how stuff adds up right now.
+-- This is just to show me how stuff adds up right now.
 
 import D20.Character
 import D20.Dice

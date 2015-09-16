@@ -75,6 +75,6 @@ class DefaultSkillGainModel s  where
 
 instance DefaultSkillGainModel SkillGain where
   computeSkillPointsForBaseValue base skillGain =
-    (base *
-     (getMultiplier skillGain)) +
-    (getAdditive skillGain)
+    (base +
+     (getAdditive skillGain)) *
+    (getMultiplier skillGain)

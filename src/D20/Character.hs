@@ -19,9 +19,9 @@ data Character =
 instance HasAbilities Character where
   getAbilities = getCharacterAbilities
 
-class IsCharacter a  where
-  getAbility :: Ability -> a -> Int
-  getAbilityModifier :: Ability -> a -> Int
+-- class IsCharacter a  where
+--   getAbility :: Ability -> a -> Int
+--   getAbilityModifier :: Ability -> a -> Int
 
 instance IsGainingSkills Character where
   getFirstLevelSkillGain = getClassStartingSkillPoints . getBasicClass

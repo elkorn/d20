@@ -1,7 +1,6 @@
 module TestInstances where
 
 import Test.QuickCheck
-import Test.QuickCheck.IO ()
 
 import Control.Monad.Random
 

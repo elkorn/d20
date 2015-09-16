@@ -59,7 +59,7 @@ data Roll =
   Roll {rollDie :: Die
        ,rollMultiplier :: Maybe Int
        ,rollAdditive :: Maybe Int}
-  deriving (Show,Eq)
+  deriving (Show,Eq,Generic)
 
 type RollModifier = Roll -> Int -> Int
 

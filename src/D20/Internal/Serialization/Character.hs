@@ -20,6 +20,15 @@ instance FromJSON Abilities
 instance ToJSON Ability
 instance FromJSON Ability
 
+instance ToJSON Attack
+instance FromJSON Attack
+
+instance ToJSON AttackBonusCondition
+instance FromJSON AttackBonusCondition
+
+instance ToJSON AttackBonusEffect
+instance FromJSON AttackBonusEffect
+
 instance ToJSON BasicClass
 instance FromJSON BasicClass
 
@@ -28,6 +37,12 @@ instance FromJSON Character
 
 instance ToJSON ClassTableRow
 instance FromJSON ClassTableRow
+
+instance ToJSON Damage
+instance FromJSON Damage
+
+instance ToJSON DamageType
+instance FromJSON DamageType
 
 instance ToJSON Feat
 instance FromJSON Feat
@@ -49,6 +64,9 @@ instance FromJSON SkillCheck
 
 instance ToJSON SkillEffect
 instance FromJSON SkillEffect
+
+instance ToJSON SkillReference
+instance FromJSON SkillReference
 
 instance ToJSON SkillGain
 instance FromJSON SkillGain

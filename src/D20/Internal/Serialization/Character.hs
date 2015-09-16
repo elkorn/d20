@@ -9,6 +9,7 @@ import D20.Internal.Character.Skill
 import D20.Internal.Character.Talent
 import D20.Character
 
+import D20.Internal.Serialization.Action
 import D20.Internal.Serialization.Dice
 
 import Data.Aeson
@@ -43,8 +44,18 @@ instance FromJSON FeatReference
 instance ToJSON Skill
 instance FromJSON Skill
 
+instance ToJSON SkillCheck
+instance FromJSON SkillCheck
+
+instance ToJSON SkillEffect
+instance FromJSON SkillEffect
+
 instance ToJSON SkillGain
 instance FromJSON SkillGain
 
+instance ToJSON SkillRetryConditions
+instance FromJSON SkillRetryConditions
+
 instance ToJSON Talent
 instance FromJSON Talent
+

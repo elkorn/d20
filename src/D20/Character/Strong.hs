@@ -1,7 +1,6 @@
 module D20.Character.Strong where
 
 -- TODO this is just to show me how stuff adds up right now.
-import qualified Data.Map as M
 
 import D20.Character
 import D20.Dice
@@ -46,12 +45,6 @@ strongCharacter =
                                        ,getMultiplier = 1
                                        ,getAdditive = 3}
                           ,getStartingFeats =
-                             [Feat {getFeatName = "Cleave"
-                                   ,prerequisites =
-                                      [AbilityPrerequisite Strength 13
-                                      ,FeatPrerequisite $ FeatReference "Power Attack"]
-                                   ,benefit = FeatEffect
-                                   ,normal = Nothing
-                                   ,special = Nothing}]
+                             [FeatReference "Cleave"]
                           ,getTalents = []
                           ,getBonusFeats = []}}

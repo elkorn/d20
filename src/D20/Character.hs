@@ -28,20 +28,9 @@ class IsCharacter a  where
   getAbilityModifier :: Ability -> a -> Int
 
 instance IsGainingSkills Character where
-  getFirstLevelSkillPoints character =
-    let skillGain =
-          (getClassStartingSkillPoints . getBasicClass) character
-        ability =
-          getAbilityValue (getSkillGainGoverningAbility skillGain)
-                          character
-    in computeSkillPointsForBaseValue ability skillGain
-  getSkillPointsPerLevel character =
-    let skillGain =
-          (getClassSkillPointsPerLevel . getBasicClass) character
-        ability =
-          getAbilityValue (getSkillGainGoverningAbility skillGain)
-                          character
-    in computeSkillPointsForBaseValue ability skillGain
+  getFirstLevelSkillGain = getClassStartingSkillPoints . getBasicClass
+  getPerLevelSkillGain = getClassSkillPointsPerLevel . getBasicClass
+  getBaseSkillPoints skillGain character = getAbilityValue (getSkillGainGoverningAbility skillGain) character
 
 instance IsAging Character where
   getAgingEffect character =

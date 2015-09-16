@@ -23,7 +23,7 @@ data BasicClass =
               getClassTable :: ClassTable
              ,getClassStartingSkillPoints :: SkillGain
              ,getClassSkillPointsPerLevel :: SkillGain
-             ,getStartingFeats :: [Feat]
+             ,getStartingFeats :: [FeatReference]
              ,getTalents :: [Talent]
              ,getBonusFeats :: [Feat]}
   deriving (Show,Generic)

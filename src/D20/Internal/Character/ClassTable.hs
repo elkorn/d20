@@ -6,7 +6,7 @@ import GHC.Generics
 
 data ClassTableRow =
   ClassTableRow {getLevel :: Int
-                ,getBaseAttackBonus :: Int
+                ,getBaseAttackBonuses :: [Int]
                 ,getFortitudeSave :: Int
                 ,getReflexSave :: Int
                 ,getWillSave :: Int
@@ -19,3 +19,4 @@ data ClassTableRow =
   deriving (Show,Eq,Generic)
 
 type ClassTable = [ClassTableRow]
+

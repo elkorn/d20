@@ -27,3 +27,8 @@ data BasicClass =
              ,getTalents :: [Talent]
              ,getBonusFeats :: [Feat]}
   deriving (Show,Generic)
+
+class HasClass a  where
+  getClass :: a -> ClassTableRow
+  getNumberOfAttacks :: a -> Int
+  getNumberOfAttacks = length . getBaseAttackBonuses . getClass

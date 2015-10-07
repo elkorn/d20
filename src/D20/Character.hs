@@ -9,6 +9,7 @@ import D20.Internal.Character.Action
 import D20.Internal.Character.Age
 import D20.Internal.Character.BasicClass
 import D20.Internal.Character.Feat
+import D20.Internal.Character.Inventory
 import D20.Internal.Character.Skill
 
 import Data.List
@@ -20,6 +21,7 @@ data Character =
             ,getCharacterHitPoints :: Int
             ,getCharacterAbilities :: Abilities
             ,getBasicClass :: BasicClass
+            ,getInventory :: Inventory
             ,getAcquiredFeats :: [Feat]}
   deriving (Show,Generic)
 
@@ -51,3 +53,11 @@ instance HasFeats Character where
        (getAcquiredFeats character)
 
 instance ActionTarget Character
+
+class IsLivingCreature creature  where
+  isAlive :: creature -> Bool
+
+instance IsLivingCreature Character where
+  isAlive character =
+    (getCharacterHitPoints character) >
+    0

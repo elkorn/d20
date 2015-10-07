@@ -6,6 +6,8 @@ import D20.Character
 import D20.Internal.Character.Ability
 import D20.Internal.Character.Action
 import D20.Internal.Character.BasicClass
+import D20.Internal.Character.Feat
+import D20.Internal.Character.FeatEffect
 import D20.Internal.Character.Skill
 
 import Dice.TestInstances ()
@@ -17,8 +19,6 @@ import Control.Monad.Random
 instance Bounded Ability where
   minBound = Strength
   maxBound = Charisma
-
-
 
 instance Random Ability where
   random g =
@@ -36,6 +36,9 @@ instance Arbitrary Abilities-- arbitrary = Abilities <$> arbitrary <*> arbitrary
 
 instance Arbitrary ActionTime
 
+-- instance Arbitrary AttackBonusEffect where
+--   arbitrary = AttackBonusEffect <$> arbitrary <*> arbitrary
+
 instance Arbitrary SkillCheck
 
 instance Arbitrary SkillRetryConditions
@@ -51,9 +54,21 @@ instance Arbitrary Skill where
               arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
 
 instance Arbitrary BasicClass where
-  arbitrary = BasicClass <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*>
-              arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*>
-              arbitrary <*> arbitrary
+  -- arbitrary = BasicClass <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*>
+  --             arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*>
+  --             arbitrary <*> arbitrary
   
-instance Arbitrary Character where
-  -- arbitrary = Character <$> arbitrary
+-- instance Arbitrary Character where
+--   arbitrary = Character <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+
+-- instance Arbitrary Feat where
+--   arbitrary = Feat <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+
+-- instance Arbitrary FeatEffect where
+--   arbitrary = FeatEffect <$> arbitrary <*> arbitrary <*> arbitrary
+
+instance Arbitrary FeatPrerequisite where
+  arbitrary = FeatPrerequisite <$> arbitrary
+
+instance Arbitrary FeatReference where
+  arbitrary = FeatReference <$> arbitrary

@@ -5,29 +5,16 @@ module D20.Internal.Character.FeatEffect where
 import GHC.Generics
 
 import D20.Internal.Character.Skill
-import D20.Dice
+import D20.Internal.Damage
+import D20.Internal.Item
 
--- TODO Modelling
-type Item = String
+import D20.Dice
 
 data AttackBonusCondition
   = Hit
   | CriticalHit
   | Always
   | WithItem (Maybe Item)
-  deriving (Show,Generic)
-
-data DamageType
-  = Normal
-  | Fire
-  | Ice
-  | Electricity
-  | Poison
-  deriving (Show,Generic)
-
-data Damage =
-  Damage {getValue :: Int
-         ,getType :: DamageType}
   deriving (Show,Generic)
 
 data AttackBonusEffect

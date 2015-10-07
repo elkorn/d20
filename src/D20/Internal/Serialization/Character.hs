@@ -7,6 +7,7 @@ import D20.Internal.Character.Feat
 import D20.Internal.Character.FeatEffect
 import D20.Internal.Character.Skill
 import D20.Internal.Character.Talent
+import D20.Internal.Damage
 import D20.Character
 
 import D20.Internal.Serialization.Action

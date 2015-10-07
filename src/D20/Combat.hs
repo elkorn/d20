@@ -2,6 +2,8 @@ module D20.Combat where
 
 import D20.Character
 import D20.Dice
+import D20.Internal.Damage
+import D20.Internal.Item
 import D20.Internal.Character.Ability
 import D20.Internal.Character.BasicClass
 import qualified D20.Internal.Character.Action as Action
@@ -51,50 +53,95 @@ startCombat participants =
   Combat {getCombatParticipants = participants
          ,getTurnOrder = computeTurnOrder participants}
 
-calculateAttack :: Character -> Int -> IO Int
-calculateAttack executor attackNumber =
+calculateAttack :: Character -> Ability -> Int -> IO Int
+calculateAttack executor attackAbility attackNumber =
   do let baseAttackBonus =
            (getBaseAttackBonuses . getClass $ executor) !!
            attackNumber
      let abilityModifier =
-           getAbilityModifier Strength executor -- weapon (ranged - dex?) not taken into account
+           getAbilityModifier attackAbility executor
      let rangePenalty = 0
      let sizeModifier = 0
      let attackBonus = baseAttackBonus + abilityModifier + sizeModifier -
                        rangePenalty
      roll Roll {rollDie = attackDie
                ,rollAdditive = Just attackBonus
-               ,rollMultiplier = Nothing}
-
-calculateDefense :: Character -> Int
-calculateDefense target =
-  let
-      {-
+               ,rollMultiplier = Nothing {-
             Other Modifiers: Other factors can add to a character�s Defense.
             Feats: Some feats give a bonus to a character�s Defense.
             Natural Armor: Some creatures have natural armor, which usually consists of scales, fur, or layers of thick muscle.
             Dodge Bonuses: Some other Defense bonuses represent actively avoiding blows. These bonuses are called dodge bonuses. Any situation that denies a character his or her Dexterity bonus also denies his or her dodge bonuses. Unlike most sorts of bonuses, dodge bonuses stack with each other.
             Magical Effects: Some campaigns may include magic. Some magical effects offer enhancement bonuses to armor (making it more effective) or deflection bonuses that ward off attacks.
-        -}baseDefense = 10
+        -}}
+calculateDefense :: Character -> Int
+calculateDefense target =
+  let baseDefense = 10
       abilityModifier =
         (getAbilityModifier Dexterity target)
       equipmentBonus = 0
       sizeModifier = 0
   in baseDefense + abilityModifier + equipmentBonus + sizeModifier
 
-continueAttack :: Int -> Character -> Character -> Combat -> IO Combat
-continueAttack attacksLeft executor target combat =
-  -- This is just a sketch.
-  do let numberOfAttacks = getNumberOfAttacks executor
-     attack <- calculateAttack executor $ numberOfAttacks - attacksLeft
-     let defense = calculateDefense target
-     if defense > attack
-        then ()
-        else () -- apply damage etc.
-     if attacksLeft > 0
-        then continueattack attacksleft -
-             1 executor target combat
-        else return combat
+calculateDamage :: Character -> Wieldable -> IO Damage
+calculateDamage executor wieldable =
+  do let minimumDamage = 1
+     let basicDamageRoll = getBasicDamageRoll wieldable
+     let finalDamageRoll =
+           applyDamageAbilityBonus (getWeaponDamageAbility wieldable)
+                                   executor
+                                   basicDamageRoll
+     damageValue <- roll finalDamageRoll
+     return $
+       Damage (damageValue + minimumDamage)
+              (Physical $ getWeaponDamageType wieldable)
+
+getBasicDamageRoll :: Wieldable -> Roll
+getBasicDamageRoll wieldable =
+  Roll ((case (getWieldableDamage wieldable) of
+           Just damageRoll -> damageRoll
+           Nothing -> Four))
+       Nothing
+       Nothing
+
+applyDamageAbilityBonus :: Maybe Ability -> Character -> Roll -> Roll
+applyDamageAbilityBonus Nothing _ r = r
+applyDamageAbilityBonus (Just ability) character (Roll die mult Nothing) =
+  Roll die
+       mult
+       (Just $
+        getAbilityModifier ability character)
+applyDamageAbilityBonus (Just ability) character (Roll die mult (Just add)) =
+  Roll die
+       mult
+       (Just $
+        add +
+        (getAbilityModifier ability character))
+
+-- TODO unarmed attack if not weapon
+-- attack :: Character -> Wieldable -> Character -> Combat -> IO Combat
+-- attack executor wieldable target combat = do
+--   let attackAttribute = if (isWeaponRanged wieldable) then Dexterity
+--                                                    else Strength
+--   attack <- calculateAttack executor Strength 0
+--   let defense = calculateDefense target
+--   if defense > attack
+--      then return combat
+--      else do
+--       let damage = calculateDamage executor wieldable
+
+
+-- attack :: Int -> Character -> Character -> Combat -> IO Combat
+-- attack attacksLeft executor target combat =
+--   -- This is just a sketch.
+--   do let numberOfAttacks = getNumberOfAttacks executor
+--      attack <- calculateAttack executor $ numberOfAttacks - attacksLeft
+--      let defense = calculateDefense target
+--      if defense > attack
+--         then ()
+--         else () -- apply damage etc.
+--      if attacksLeft > 0
+--         then attack (attacksLeft-1) executor target combat
+--         else return combat
 
 -- performActionInCombat :: (Action.ActionTarget target)
 --                       => Character
@@ -102,12 +149,12 @@ continueAttack attacksLeft executor target combat =
 --                       -> (Maybe target)
 --                       -> Combat
 --                       -> IO Combat
-performActionInCombat :: Character
-                      -> Action.Action
-                      -> Maybe Character
-                      -> Combat
-                      -> IO Combat
-performActionInCombat executor action possibleTarget combat =
-  case (action,possibleTarget) of
-    (Action.Attack,Nothing) -> return combat -- incorrect state, should never occur.
-    (Action.Attack,Just target) -> continueAttack (getNumberOfAttacks executor) executor target combat
+-- performAttackAction :: Character
+--                       -> Action.AttackAction
+--                       -> Maybe Character
+--                       -> Combat
+--                       -> IO Combat
+-- performActionInCombat executor action (Just target) combat = attack (getNumberOfAttacks executor) executor target combat
+-- performActionInCombat executor action Nothing combat = return combat
+
+

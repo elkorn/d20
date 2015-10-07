@@ -4,5 +4,5 @@ import D20.Internal.Character.Action
 
 import Data.Aeson
 
-instance ToJSON ActionTime
-instance FromJSON ActionTime
+-- instance ToJSON ActionTime
+-- instance FromJSON ActionTime

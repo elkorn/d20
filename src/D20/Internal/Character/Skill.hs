@@ -33,7 +33,7 @@ data Skill =
         ,getSkillTryAgain :: SkillRetryConditions
         ,getSkillSpecial :: String  -- I don't yet understand what 'take 20 or 10' means.
         ,getSkillUntrained :: [(SkillCheck,SkillEffect)]
-        ,getSkillTime :: ActionTime}
+        ,getSkillTime :: ActionType}
   deriving (Show,Eq,Ord,Generic)
 
 data SkillGain =

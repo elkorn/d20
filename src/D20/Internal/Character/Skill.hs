@@ -5,7 +5,7 @@ module D20.Internal.Character.Skill where
 import GHC.Generics
 
 import D20.Internal.Character.Ability
-import D20.Internal.Character.Action
+-- import D20.Internal.Character.Action
 
 type SkillRank = Int
 
@@ -33,7 +33,7 @@ data Skill =
         ,getSkillTryAgain :: SkillRetryConditions
         ,getSkillSpecial :: String  -- I don't yet understand what 'take 20 or 10' means.
         ,getSkillUntrained :: [(SkillCheck,SkillEffect)]
-        ,getSkillTime :: ActionType}
+        {-,getSkillTime :: ActionType-}}
   deriving (Show,Eq,Ord,Generic)
 
 data SkillGain =

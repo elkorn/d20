@@ -5,7 +5,10 @@ module D20.Internal.Character.Action where
 
 import GHC.Generics
 
-data ActionType
+import D20.Character
+import D20.Internal.Item
+
+data ActionTime
   = AttackAction
   | MoveAction
   | FullRoundAction
@@ -25,25 +28,31 @@ data ActionType
 --   | CastSpell
 --   deriving (Show,Eq,Ord)
 
-data AttackAction
-  = MeleeAttack
-  | RangedAttack
-  | UnarmedAttack
-  | ArmedAttack
-  | ShootIntoMelee
+data CombatAction
+  = Attack {getCombatActionExecutor :: Character
+           ,getCombatActionWieldable :: Wieldable
+           ,getCombatActionTarget :: Character}
+  |
+    -- These are decided by the wielded weapon
+    -- | MeleeAttack
+    -- | RangedAttack
+    -- | UnarmedAttack
+    -- | ArmedAttack
+    ShootIntoMelee
   | FightDefensively
   | TotalDefense
   | StartFullRoundAction
   | CompleteFullRoundAction
-  deriving (Show,Eq,Ord)
+  deriving (Show,Generic)
 
 data MoveAction
   = Charge
   | FullAttack
   | Run
   | Withdraw
-  deriving (Show,Eq,Ord)
-class ActionTarget t
+  deriving (Show,Generic)
+
+-- class ActionTarget t
 
 -- data ActionTime
 --   = FullRoundAction

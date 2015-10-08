@@ -5,14 +5,14 @@ module D20.Character where
 import GHC.Generics
 
 import D20.Internal.Character.Ability
-import D20.Internal.Character.Action
+-- import D20.Internal.Character.Action
 import D20.Internal.Character.Age
 import D20.Internal.Character.BasicClass
 import D20.Internal.Character.Feat
 import D20.Internal.Character.Inventory
 import D20.Internal.Character.Skill
 
-import Data.List
+-- import Data.List
 
 data Character =
   Character {getCharacterAge :: Int
@@ -52,12 +52,12 @@ instance HasFeats Character where
     in (fmap resolveFeatReference $ getStartingFeats basicClass) ++
        (getAcquiredFeats character)
 
-instance ActionTarget Character
+-- instance ActionTarget Character
 
-class IsLivingCreature creature  where
+class IsCreature creature  where
   isAlive :: creature -> Bool
 
-instance IsLivingCreature Character where
+instance IsCreature Character where
   isAlive character =
     (getCharacterHitPoints character) >
     0

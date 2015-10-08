@@ -39,6 +39,7 @@ library
                  , D20.Internal.Character.TalentEffect
                  , D20.Internal.Character.TalentLevel
                  , D20.Internal.Character.TalentTree
+                 , D20.Internal.Combat.Attack
                  , D20.Internal.Serialization.Action
                  , D20.Internal.Serialization.Character
                  , D20.Internal.Serialization.Dice
